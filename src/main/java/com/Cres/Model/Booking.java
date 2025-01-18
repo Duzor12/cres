@@ -23,6 +23,12 @@ public class Booking {
     private LocalDateTime createdAt;
 
 
+    public Booking() {
+        this.createdAt = LocalDateTime.now();
+    }
+
+
+    // the following might be useless cuz spring does this automatically?
     public Booking(String name, String email, String phone, LocalDate date, LocalTime time) {
         this.name = name;
         this.email = email;
