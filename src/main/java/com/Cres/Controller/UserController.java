@@ -57,4 +57,9 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
         }
     }
+
+    @GetMapping("/me")
+    public ResponseEntity<User> me() {
+        return ResponseEntity.ok(userService.getCurrentUser());
+    }
 }

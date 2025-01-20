@@ -18,6 +18,8 @@ import org.springframework.security.core.Authentication;
 
 import org.springframework.context.annotation.Lazy; 
 
+import org.springframework.security.core.context.SecurityContextHolder;
+
 @Service
 public class CresUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
@@ -58,4 +60,15 @@ public class CresUserDetailsService implements UserDetailsService {
         User authenticatedUser = (User) authentication.getPrincipal();
         return jwtService.generateToken(authenticatedUser);
     }
+
+    public User getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated() || 
+            authentication.getPrincipal().equals("anonymousUser")) {
+            throw new IllegalStateException("No authenticated user found");
+        }
+        
+        return (User) authentication.getPrincipal();
+    }
 }
+
