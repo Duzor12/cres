@@ -1,2 +1,2 @@
 # Cres
-Cres Barber App
+Cres Barber App (BACKEND JAVA)
