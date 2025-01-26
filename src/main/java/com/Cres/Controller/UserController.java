@@ -62,4 +62,17 @@ public class UserController {
     public ResponseEntity<User> me() {
         return ResponseEntity.ok(userService.getCurrentUser());
     }
+
+    @PostMapping("/signout")
+    public ResponseEntity<String> signOut() {
+        ResponseCookie cookie = ResponseCookie.from("token", "")
+            .httpOnly(true)
+            .path("/")
+            .maxAge(0)
+            .build();
+
+        return ResponseEntity.ok()
+            .header(HttpHeaders.SET_COOKIE, cookie.toString())
+            .body("Signed out successfully");
+    }
 }

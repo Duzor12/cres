@@ -49,7 +49,7 @@ public class SecurityConfig {
             .securityContext(securityContext -> securityContext.disable())
             .sessionManagement(session -> session.disable())
             .authorizeHttpRequests(authz -> authz
-                .requestMatchers("/api/users/signup", "/api/users/signin", "/api/booking/makebooking").permitAll()
+                .requestMatchers("/api/users/signup", "/api/users/signin", "/api/users/signout", "/api/booking/makebooking").permitAll()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
