@@ -25,13 +25,13 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<User> signUp(@RequestBody User user) {
+    public ResponseEntity<?> signUp(@RequestBody User user) {
         try {
             User savedUser = userService.createUser(user);
             return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
         } catch (IllegalArgumentException e) {
             // For cases like username already exists
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

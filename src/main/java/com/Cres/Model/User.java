@@ -22,18 +22,15 @@ public class User implements UserDetails {
     @Id
     private String id;
 
-    @Indexed(unique = true)
+    @Indexed(unique = true, background = true)
     private String username;
 
-    
-    @Indexed(unique = true)
+    @Indexed(unique = true, background = true)
     private String email;
 
     private String password;
 
-    private String verificationCode;
-
-    private LocalDateTime verificationCodeExpiresAt;
+    private Boolean emailVerified;
 
     // Constructor without id (useful when creating a new user)
     public User(String username, String email, String password) {

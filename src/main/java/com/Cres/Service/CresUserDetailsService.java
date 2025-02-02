@@ -49,6 +49,14 @@ public class CresUserDetailsService implements UserDetailsService {
     }
 
     public User createUser(User user) {
+        if (userRepository.existsByUsername(user.getUsername())) {
+            throw new IllegalArgumentException("Username already exists. If this is you, please sign in.");
+        }
+
+        if (userRepository.existsByEmail(user.getEmail())) {
+            throw new IllegalArgumentException("Email already exists. If this is you, please sign in.");
+        }
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
