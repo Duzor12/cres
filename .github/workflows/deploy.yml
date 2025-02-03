@@ -20,13 +20,10 @@ jobs:
           cache: maven
 
       - name: Build with Maven
-        run: |
-          cd App
-          mvn clean package -DskipTests
+        run: mvn clean package -DskipTests
 
       - name: Generate deployment package
         run: |
-          cd App
           mkdir -p deploy
           cp target/Cres-0.0.1-SNAPSHOT.jar deploy/
           cp Procfile deploy/
@@ -41,5 +38,5 @@ jobs:
           application_name: cres-app
           environment_name: cres-environment
           region: us-east-1
-          deployment_package: App/deploy/deploy.zip
+          deployment_package: deploy/deploy.zip
           version_label: ${{ github.sha }}
