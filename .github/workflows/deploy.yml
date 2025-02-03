@@ -1,0 +1,45 @@
+name: Deploy to AWS Elastic Beanstalk
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build with Maven
+        run: |
+          cd App
+          mvn clean package -DskipTests
+
+      - name: Generate deployment package
+        run: |
+          cd App
+          mkdir -p deploy
+          cp target/Cres-0.0.1-SNAPSHOT.jar deploy/
+          cp Procfile deploy/
+          cd deploy
+          zip -r deploy.zip .
+
+      - name: Deploy to Elastic Beanstalk
+        uses: einaregilsson/beanstalk-deploy@v21
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: cres-app
+          environment_name: cres-environment
+          region: us-east-1
+          deployment_package: App/deploy/deploy.zip
+          version_label: ${{ github.sha }}
