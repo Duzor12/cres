@@ -26,7 +26,6 @@ jobs:
         run: |
           mkdir -p deploy
           cp target/Cres-0.0.1-SNAPSHOT.jar deploy/
-          cp Procfile deploy/
           cd deploy
           zip -r deploy.zip .
 
