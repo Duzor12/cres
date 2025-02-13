@@ -79,11 +79,14 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList(
-            "http://localhost:5173",          // Local development
+            "http://localhost:5173",          // Vite default
+            "http://localhost:3000",          // Common dev port
+            "http://127.0.0.1:5173",          // Vite default with IP
+            "http://127.0.0.1:3000",          // Common dev port with IP
             "https://crescuts.com",           // Production domain
             "https://www.crescuts.com",       // Production domain with www
             "https://dev.crescuts.com",       // Optional development/staging domain
-            "http://cres-environment.eba-eussrajd.us-east-1.elasticbeanstalk.com"  // AWS domain
+            "https://cres-environment.eba-eussrajd.us-east-1.elasticbeanstalk.com"  // AWS domain
         ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
