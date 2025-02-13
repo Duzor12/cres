@@ -46,6 +46,7 @@ public class UserController {
                 .secure(true)
                 .sameSite("None")
                 .path("/")
+                .domain(".eba-eussrajd.us-east-1.elasticbeanstalk.com")
                 .maxAge(60 * 60 * 24 * 7)
                 .build();
 
@@ -69,7 +70,10 @@ public class UserController {
     public ResponseEntity<String> signOut() {
         ResponseCookie cookie = ResponseCookie.from("token", "")
             .httpOnly(true)
+            .secure(true)
+            .sameSite("None")
             .path("/")
+            .domain(".eba-eussrajd.us-east-1.elasticbeanstalk.com")
             .maxAge(0)
             .build();
 

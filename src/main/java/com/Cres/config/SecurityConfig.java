@@ -46,14 +46,11 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .securityContext(securityContext -> securityContext.disable())
-            .sessionManagement(session -> session.disable())
             .authorizeHttpRequests(authz -> authz
                 .requestMatchers("/api/users/signup", "/api/users/signin", "/api/users/signout", "/api/booking/makebooking", "/api/users/test").permitAll()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-
 
         return http.build();
     }
@@ -85,12 +82,13 @@ public class SecurityConfig {
             "http://localhost:5173",          // Local development
             "https://crescuts.com",           // Production domain
             "https://www.crescuts.com",       // Production domain with www
-            "https://dev.crescuts.com"        // Optional development/staging domain
+            "https://dev.crescuts.com",       // Optional development/staging domain
+            "http://cres-environment.eba-eussrajd.us-east-1.elasticbeanstalk.com"  // AWS domain
         ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
         configuration.setAllowCredentials(true);
-        configuration.setExposedHeaders(Arrays.asList("Authorization"));
+        configuration.setExposedHeaders(Arrays.asList("Authorization", "Set-Cookie"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
