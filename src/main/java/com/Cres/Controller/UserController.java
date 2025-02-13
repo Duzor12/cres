@@ -43,7 +43,6 @@ public class UserController {
             String jwtToken = userService.authenticateUser(user);
             ResponseCookie cookie = ResponseCookie.from("token", jwtToken)
                 .httpOnly(true)
-                .secure(true)
                 .sameSite("None")
                 .path("/")
                 .maxAge(60 * 60 * 24 * 7)
