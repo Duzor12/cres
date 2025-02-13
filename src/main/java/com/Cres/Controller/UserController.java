@@ -50,6 +50,7 @@ public class UserController {
                 .build();
 
             return ResponseEntity.ok()
+                .header("Access-Control-Allow-Credentials", "true")
                 .header(HttpHeaders.SET_COOKIE, cookie.toString())
                 .body("Login successful");
         } catch (IllegalArgumentException e) {
