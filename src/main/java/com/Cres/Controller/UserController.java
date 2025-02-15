@@ -71,6 +71,8 @@ public class UserController {
             .httpOnly(true)
             .path("/")
             .maxAge(0)
+            .sameSite("None")
+            .secure(true)
             .build();
 
         return ResponseEntity.ok()
