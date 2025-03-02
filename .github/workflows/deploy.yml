@@ -38,4 +38,5 @@ jobs:
           environment_name: cres-environment
           region: us-east-1
           deployment_package: deploy/deploy.zip
-          version_label: ${{ github.sha }}
+          version_label: ${{ github.sha }}-${{ github.run_number }}
+          use_existing_version_if_available: true
